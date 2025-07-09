@@ -1,0 +1,23 @@
+-- ========================================
+-- Purpose: Script to load data into bronze layer tables
+-- Author: Daniel Varga
+-- Date: 2025-07-09
+-- ========================================
+
+--Set search path
+SET search_path TO bronze;
+
+--Load CompleteData
+\copy bronze.complete_data FROM 'CompleteData.csv' DELIMITER ',' CSV HEADER;
+
+--Load Stations
+\copy bronze.stations FROM 'Stations.csv' DELIMITER ',' CSV HEADER;
+
+--Load Carriers
+\copy bronze.carriers FROM 'Carriers.csv' DELIMITER ',' CSV HEADER;
+
+--Load Cancellations
+\copy bronze.cancellation FROM 'Cancellation.csv' DELIMITER ',' CSV HEADER;
+
+--Load ActiveWeather
+\copy bronze.active_weather FROM 'ActiveWeather.csv' DELIMITER ',' CSV HEADER;

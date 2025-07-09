@@ -1,13 +1,11 @@
 -- ========================================
--- Purpose: Creating Bronze Layer Tables and Load Data
+-- Purpose: Creating bronze layer tables
 -- Author: Daniel Varga
 -- Date: 2025-07-08
 -- ========================================
 
 
--- =====================
 -- Creating table for raw flight data, weather and aircraft attributes
--- =====================
 CREATE TABLE IF NOT EXISTS bronze.complete_data(
 fl_date DATE,
 dep_hour INTEGER,
@@ -52,9 +50,7 @@ active_weather FLOAT
 );
 
 
--- =====================
 -- Creating table for station data
--- =====================
 CREATE TABLE IF NOT EXISTS bronze.stations(
 airport_id INTEGER,
 airport VARCHAR(25),
@@ -72,27 +68,21 @@ mesonet_station VARCHAR(25)
 );
 
 
--- =====================
 -- Creating table for carriers data
--- =====================
 CREATE TABLE IF NOT EXISTS bronze.carriers(
 code VARCHAR(10),
 description VARCHAR(50)
 );
 
 
--- =====================
 -- Creating table for cancellation statud code and description
--- =====================
 CREATE TABLE IF NOT EXISTS bronze.cancellation(
 status INTEGER,
 cancellation_reason VARCHAR(50)
 );
 
 
--- =====================
 -- Creating table for weather code and description
--- =====================
 CREATE TABLE IF NOT EXISTS bronze.active_weather(
 status INTEGER,
 weather_description VARCHAR(125)
