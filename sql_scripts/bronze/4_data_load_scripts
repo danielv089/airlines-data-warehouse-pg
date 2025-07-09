@@ -8,16 +8,21 @@
 SET search_path TO bronze;
 
 --Load CompleteData
+TRUNCATE TABLE bronze.complete_data
 \copy bronze.complete_data FROM 'CompleteData.csv' DELIMITER ',' CSV HEADER;
 
 --Load Stations
+TRUNCATE TABLE bronze.stations
 \copy bronze.stations FROM 'Stations.csv' DELIMITER ',' CSV HEADER;
 
 --Load Carriers
+TRUNCATE TABLE bronze.carriers
 \copy bronze.carriers FROM 'Carriers.csv' DELIMITER ',' CSV HEADER;
 
 --Load Cancellations
+TRUNCATE TABLE bronze.cancellation
 \copy bronze.cancellation FROM 'Cancellation.csv' DELIMITER ',' CSV HEADER;
 
 --Load ActiveWeather
+TRUNCATE TABLE bronze.active_weather
 \copy bronze.active_weather FROM 'ActiveWeather.csv' DELIMITER ',' CSV HEADER;
