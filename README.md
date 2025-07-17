@@ -6,15 +6,15 @@ This project demonstrates the design and implementation of an airline data wareh
 
 ## 🧱 Architecture Layers
 
-# Bronze Layer
+### Bronze Layer
 - Raw flight, , cancellation, carrier, weather, and airport data ingested directly from source systems.
 - Data stored in staging tables in the bronze schema without transformation.
 
-# Silver Layer
+### Silver Layer
 - Data cleansing and transformation.
 - Separation into normalized dimension tables and a fact table.
 
-# Gold Layer
+### Gold Layer
 - Business-level aggregates, KPIs, and advanced metrics calculated
 
 ## 🧰 Tech Stack
