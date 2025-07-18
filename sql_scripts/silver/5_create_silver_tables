@@ -1,12 +1,11 @@
 -- ========================================
--- Purpose: Creating bronze layer tables
+-- Purpose: Creating silver layer tables
 -- Author: Daniel Varga
--- Date: 2025-07-08
+-- Date: 2025-07-18
 -- ========================================
 
-
--- Creating table for raw flight data, weather and aircraft attributes
-CREATE TABLE IF NOT EXISTS bronze.complete_data(
+--
+CREATE TABLE IF NOT EXISTS silver.complete_data(
 fl_date DATE,
 dep_hour INTEGER,
 mkt_unique_carrier VARCHAR(5),
@@ -46,44 +45,8 @@ low_level_cloud DOUBLE PRECISION,
 mid_level_cloud DOUBLE PRECISION,
 high_level_cloud DOUBLE PRECISION,
 cloud_cover DOUBLE PRECISION,
-active_weather DOUBLE PRECISION
+active_weather DOUBLE PRECISION,
+missing_weather_data BOOLEAN
 );
 
 
--- Creating table for station data
-CREATE TABLE IF NOT EXISTS bronze.stations(
-airport_id INTEGER,
-airport VARCHAR(25),
-display_airport_name VARCHAR(100),
-display_airport_city VARCHAR(100),
-airport_state_name VARCHAR(50),
-airport_state_code VARCHAR(10),
-lattitude FLOAT,
-longitude FLOAT,
-elevation INTEGER,
-icao VARCHAR(25),
-iata VARCHAR(25),
-faa VARCHAR(25),
-mesonet_station VARCHAR(25)
-);
-
-
--- Creating table for carriers data
-CREATE TABLE IF NOT EXISTS bronze.carriers(
-code VARCHAR(10),
-description VARCHAR(50)
-);
-
-
--- Creating table for cancellation statud code and description
-CREATE TABLE IF NOT EXISTS bronze.cancellation(
-status INTEGER,
-cancellation_reason VARCHAR(50)
-);
-
-
--- Creating table for weather code and description
-CREATE TABLE IF NOT EXISTS bronze.active_weather(
-status INTEGER,
-weather_description VARCHAR(125)
-);

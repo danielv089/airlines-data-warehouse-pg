@@ -1,4 +1,4 @@
-# Airline Data Warehouse Architecture in PostgreSQL
+# 2002 Airlines Departure Data Warehouse in PostgreSQL
 
 ## 📌 Overview
 
