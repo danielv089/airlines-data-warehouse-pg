@@ -30,7 +30,7 @@ year_of_manufacture SMALLINT,
 manufacturer VARCHAR(25),
 icao_type VARCHAR(25),
 ac_range VARCHAR(30),
-width VARCHAR(25),
+ac_width VARCHAR(25),
 wind_dir DOUBLE PRECISION,
 wind_spd DOUBLE PRECISION,
 wind_gust DOUBLE PRECISION,
@@ -45,8 +45,15 @@ low_level_cloud DOUBLE PRECISION,
 mid_level_cloud DOUBLE PRECISION,
 high_level_cloud DOUBLE PRECISION,
 cloud_cover DOUBLE PRECISION,
-active_weather DOUBLE PRECISION,
-missing_weather_data BOOLEAN
+active_weather DOUBLE PRECISION
 );
+
+
+CREATE TABLE IF NOT EXISTS silver.cancellation(
+    status_code INTEGER,
+    cancellation_reason VARCHAR(50)
+);
+
+
 
 
