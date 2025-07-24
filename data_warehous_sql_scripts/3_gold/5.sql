@@ -115,6 +115,7 @@ SELECT flight_id, COUNT(*) FROM silver.complete_data GROUP BY flight_id HAVING C
 
 --Creating date dimension table for the year 2022
 SELECT
+  TO_CHAR(datum, 'YYYYMMDD')::INTEGER AS date_key,
 	datum as Date,
 	extract(year from datum) AS Year,
 	extract(month from datum) AS Month,
@@ -123,7 +124,7 @@ SELECT
 	extract(doy from datum) AS Day_of_Year,
 	to_char(datum, 'TMDay') AS Weekday_Name,
 	extract(week from datum) AS Calendar_Week,
-	to_char(datum, 'dd. mm. yyyy') AS FormattedD_ate,
+	to_char(datum, 'dd. mm. yyyy') AS Formatted_Date,
 	'Q' || to_char(datum, 'Q') AS Quartal,
 	to_char(datum, 'yyyy/"Q"Q') AS Year_Quartal,
 	to_char(datum, 'yyyy/mm') AS Year_Month,
