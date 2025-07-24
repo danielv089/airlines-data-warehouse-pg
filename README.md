@@ -9,16 +9,19 @@ This project demonstrates the design and implementation of an airline data wareh
 ### Bronze Layer
 - Raw flight, , cancellation, carrier, weather, and airport data ingested directly from source systems.
 - Data stored in staging tables in the bronze schema without transformation.
+- Preserving raw data.
 
 ### Silver Layer
-- Data cleansing and transformation.
-- Separation into normalized dimension tables and a fact table.
+- Data validation, cleansing and transormation, when needed. 
+- The raw data is already relatively clean, so minimal transformation needed.
+- Purpose is refining data quality and apply consistent formatting
 
 ### Gold Layer
-- Business-level aggregates, KPIs, and advanced metrics calculated
+
 
 ## 🧰 Tech Stack
 - **PostgreSQL**
+- **SQL**
 
 ## 🔗 References
 

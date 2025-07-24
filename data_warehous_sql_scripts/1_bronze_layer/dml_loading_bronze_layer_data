@@ -1,28 +1,36 @@
 -- ========================================
+-- Script: dml_loading_bronze_layer_data
 -- Purpose: Script to load data into bronze layer tables
 -- Author: Daniel Varga
--- Date: 2025-07-09
+-- Created: 2025-07-09
+-- Modified: 2025-07-24
 -- ========================================
 
---Set search path
+--Set search path to bronze schema.
 SET search_path TO bronze;
 
---Load CompleteData
+-- Load Complete Flight Data
+-- Source: CompleteData.csv
+-- Note: Table is truncated before each load
 TRUNCATE TABLE bronze.complete_data
 \copy bronze.complete_data FROM 'CompleteData.csv' DELIMITER ',' CSV HEADER;
 
---Load Stations
+-- Load Stations Data
+-- Source: Stations.csv
 TRUNCATE TABLE bronze.stations
 \copy bronze.stations FROM 'Stations.csv' DELIMITER ',' CSV HEADER;
 
---Load Carriers
+-- Load Airline Carrier Data
+-- Source: Carriers.csv
 TRUNCATE TABLE bronze.carriers
 \copy bronze.carriers FROM 'Carriers.csv' DELIMITER ',' CSV HEADER;
 
---Load Cancellations
+-- Load Cancellation Data
+-- Source: Cancellation.csv
 TRUNCATE TABLE bronze.cancellation
 \copy bronze.cancellation FROM 'Cancellation.csv' DELIMITER ',' CSV HEADER;
 
---Load ActiveWeather
+-- Load Active Weather Data
+-- Source: ActiveWeather.csv
 TRUNCATE TABLE bronze.active_weather
 \copy bronze.active_weather FROM 'ActiveWeather.csv' DELIMITER ',' CSV HEADER;

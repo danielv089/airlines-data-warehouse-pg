@@ -1,11 +1,13 @@
 -- ========================================
+-- Script: ddl_create_bronze_layer_tables.sql
 -- Purpose: Creating bronze layer tables
 -- Author: Daniel Varga
--- Date: 2025-07-08
+-- Created: 2025-07-08
+-- Modified: 2025-07-24
 -- ========================================
 
-
--- Creating table for raw flight data, weather and aircraft attributes
+-- Table: bronze.complete_data
+-- Description: Stores main flight data.
 CREATE TABLE IF NOT EXISTS bronze.complete_data(
 fl_date DATE,
 dep_hour INTEGER,
@@ -49,8 +51,8 @@ cloud_cover DOUBLE PRECISION,
 active_weather DOUBLE PRECISION
 );
 
-
--- Creating table for station data
+-- Table: bronze.stations
+-- Description: Airports metadata.
 CREATE TABLE IF NOT EXISTS bronze.stations(
 airport_id INTEGER,
 airport VARCHAR(25),
@@ -67,22 +69,22 @@ faa VARCHAR(25),
 mesonet_station VARCHAR(25)
 );
 
-
--- Creating table for carriers data
+-- Table: bronze.carriers
+-- Description: Airline carrier codes and full names.
 CREATE TABLE IF NOT EXISTS bronze.carriers(
 code VARCHAR(10),
 description VARCHAR(50)
 );
 
-
--- Creating table for cancellation statud code and description
+-- Table: bronze.cancellation
+-- Description: Cancellation status code and description.
 CREATE TABLE IF NOT EXISTS bronze.cancellation(
 status INTEGER,
 cancellation_reason VARCHAR(50)
 );
 
-
--- Creating table for weather code and description
+-- Table: bronze.active_weather
+-- Description: Weather condition codes and description.
 CREATE TABLE IF NOT EXISTS bronze.active_weather(
 status INTEGER,
 weather_description VARCHAR(125)
