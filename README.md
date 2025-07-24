@@ -26,10 +26,9 @@ This project demonstrates the design and implementation of an airline data wareh
 ## 🔗 References
 
 - Kaggle - 2022 US Airlines Domestic Departure Data
-
-https://www.kaggle.com/datasets/jl8771/2022-us-airlines-domestic-departure-data
+  https://www.kaggle.com/datasets/jl8771/2022-us-airlines-domestic-departure-data
 
 - PostgreSQL Documentation
-https://www.postgresql.org/docs/
+  https://www.postgresql.org/docs/
 
 ✅ This project uses only publicly available data for educational purposes.
