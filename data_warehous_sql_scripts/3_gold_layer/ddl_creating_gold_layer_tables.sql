@@ -3,10 +3,11 @@
 -- Purpose: Creating gold layer tables
 -- Author: Daniel Varga
 -- Created: 2025-07-18
--- Modified: 2025-07-24
+-- Modified: 2025-07-26
 -- ========================================
 
-
+-- Table: gold.dim_date
+-- Description: Date dimension table containing various granularities
 CREATE TABLE IF NOT EXISTS gold.dim_date (
     date_key INTEGER PRIMARY KEY,
     date DATE,
@@ -30,7 +31,6 @@ CREATE TABLE IF NOT EXISTS gold.dim_date (
     month_end DATE
 );
 
-
 -- Table: gold.dim_cancellation
 -- Description: Cancellation status code and description dimension table
 -- Note: Primary key added.
@@ -38,8 +38,6 @@ CREATE TABLE IF NOT EXISTS gold.dim_cancellation(
     status_code INTEGER PRIMARY KEY,
     cancellation_reason VARCHAR(50)
 );
-
-
 
 -- Table: gold.dim_carriers
 -- Description: Airline carrier codes and full names dimension table
@@ -49,7 +47,6 @@ CREATE TABLE IF NOT EXISTS gold.dim_carriers(
     airline_name VARCHAR(50)
 );
 
-
 -- Table: gold.dim_active_weather
 -- Description: Weather condition codes and description dimension table
 -- Note_ Primary key added
@@ -57,8 +54,6 @@ CREATE TABLE IF NOT EXISTS gold.dim_active_weather(
     weather_id INTEGER PRIMARY KEY,
     weather_description VARCHAR(125)
 );
-
-
 
 -- Table: gold.dim_stations
 -- Description: Airports metadata dimension table
@@ -79,7 +74,6 @@ CREATE TABLE IF NOT EXISTS gold.dim_airports(
     mesonet_station VARCHAR(25)
 );
 
-
 -- Table: gold.dim_aircraft
 -- Description: Aircraft dimension table
 -- Note: Aircraft diemnsion table seperated from the main complete data
@@ -92,11 +86,9 @@ CREATE TABLE IF NOT EXISTS gold.dim_aircraft(
     ac_width VARCHAR(25)
 );
 
-
-
-
+-- Table: gold.fact_departure_data
+-- Description: Departure facts table linking to all dimensions
 CREATE TABLE gold.fact_departure_data(
-    departure_id SERIAL PRIMARY KEY,
     fl_date DATE NOT NULL,
     date_fk INTEGER REFERENCES gold.dim_date(date_key),
     dep_hour INTEGER,
@@ -128,6 +120,5 @@ CREATE TABLE gold.fact_departure_data(
     mid_level_cloud DOUBLE PRECISION,
     high_level_cloud DOUBLE PRECISION,
     cloud_cover DOUBLE PRECISION,
-    active_weather INTEGER REFERENCES gold.dim_active_weather(weather_id),
-    UNIQUE(fl_date, dep_hour, tail_num_fk)
+    active_weather INTEGER REFERENCES gold.dim_active_weather(weather_id)
 );

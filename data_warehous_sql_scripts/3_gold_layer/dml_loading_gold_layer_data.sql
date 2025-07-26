@@ -3,10 +3,11 @@
 -- Purpose: Loading data into gold layer tables
 -- Author: Daniel Varga
 -- Created: 2025-07-24
--- Modified: 2025-07-24
+-- Modified: 2025-07-26
 -- ========================================
 
-
+-- Load date dimension table (dim_date)
+-- Generates a calendar for the year 2022
 INSERT INTO gold.dim_date (
     date_key,
     date,
@@ -59,8 +60,6 @@ FROM (
      ) DQ
 order by 1;
 
-
-
 -- Load cancellation data table into gold.dim_cancellation
 INSERT INTO gold.dim_cancellation(
     status_code, 
@@ -84,7 +83,6 @@ SELECT
 FROM
     silver.carriers;
 
-
 -- Load weather event codes and description into gold.dim_active_weather
 INSERT INTO gold.dim_active_weather(
     weather_id,
@@ -95,7 +93,6 @@ SELECT
     weather_description
 FROM
     silver.active_weather;
-
 
 -- Load station metadata into gold.dim_airports
 INSERT INTO gold.dim_airports(
@@ -130,10 +127,9 @@ SELECT
 FROM
   silver.stations;
 
-
-
+-- Load distinct aircraft info into aircraft dimension
 -- Separating aircraft data from the main fact table
--- Note: Selecting distinct values to assure not duplicate primary keys in the dimension table
+-- Note: DISTINCT ensures unique tail numbers to avoid PK conflicts
 INSERT INTO gold.dim_aircraft(
   tail_num,
   year_of_manufacture,
@@ -151,10 +147,8 @@ SELECT DISTINCT
   width
 FROM bronze.complete_data;
 
-
-
-
-
+-- Load main fact table with enriched flight data
+-- Note: Joins to airport dimension for origin and destination IDs for quicker query performance
 INSERT INTO gold.fact_departure_data(
     fl_date,
     date_fk,

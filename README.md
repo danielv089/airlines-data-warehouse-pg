@@ -1,4 +1,4 @@
-# 2002 Airlines Departure Data Warehouse in PostgreSQL
+# 2022 Airlines Departure Data Warehouse in PostgreSQL
 
 ## 📌 Overview
 
@@ -14,10 +14,11 @@ This project demonstrates the design and implementation of an airline data wareh
 ### Silver Layer
 - Data validation, cleansing and transormation, when needed. 
 - The raw data is already relatively clean, so minimal transformation needed.
-- Purpose is refining data quality and apply consistent formatting
+- Purpose is refining data quality and apply consistent formatting.
 
 ### Gold Layer
-
+- Creating and loading data into dimension and fact tables used for business intelligence, reporting, and analytics.
+- Follows a star schema structure or business intelligence, reporting, and analytics.
 
 ## 🧰 Tech Stack
 - **PostgreSQL**
