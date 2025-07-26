@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-This project demonstrates the design and implementation of an airline data warehouse using PostgreSQL. It focuses on modeling historical U.S. domestic departure flight data into a clean, query-optimized structure following the dimensional modeling (star schema) approach. The goal is to transform raw, denormalized datasets into a datawarehous that supports efficient querying, reporting, and analytics for airline operations and performance metrics. The project uses the Medallion Architecture design pattern, which organizes data processing into layered zones — Bronze, Silver, and Gold.
+This project demonstrates the design of the 2022 Airlines Departure Data Warehouse using PostgreSQL. It is modeling historical U.S. domestic departure flight data into a query-optimized data warehouse following using dimensional modeling (star schema) approach. The goal of this project is to transform raw CSV files into a datawarehous that supports efficient querying, reporting, and analytics for airline deparure operations and performance metrics. The project uses the Medallion Architecture which organizes data processing into layered zones — Bronze, Silver, and Gold.
 
 ## 🧱 Architecture Layers
 
