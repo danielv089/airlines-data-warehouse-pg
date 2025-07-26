@@ -7,18 +7,18 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 ## 🧱 Architecture Layers
 
 ### Bronze Layer
-- Raw flight, , cancellation, carrier, weather, and airport data ingested directly from source systems.
+- Raw flight, , cancellation, carrier, weather, and airport data stored in CSV files
 - Data stored in staging tables in the bronze schema without transformation.
 - Preserving raw data.
 
 ### Silver Layer
 - Data validation, cleansing and transormation, when needed. 
-- The raw data is already relatively clean, so minimal transformation needed.
+- The raw data is already relatively clean, so minimal transformation was epplied.
 - Purpose is refining data quality and apply consistent formatting.
 
 ### Gold Layer
 - Creating and loading data into dimension and fact tables used for business intelligence, reporting, and analytics.
-- Follows a star schema structure or business intelligence, reporting, and analytics.
+- Follows a star schema structure for business intelligence, reporting, and analytics.
 - Creating indexes to increase query performance.
 - Date dimension table added to support time based aggregation.
 
