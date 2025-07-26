@@ -13,11 +13,11 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 
 ### Silver Layer
 - Data validation, cleansing and transormation, when needed. 
-- The raw data is already relatively clean, so minimal transformation was epplied.
-- Purpose is refining data quality and apply consistent formatting.
+- The raw data is already relatively clean, so minimal transformation was applied.
+- Purpose is refining data quality and apply consistent formatting and ensure atomicity.
 
 ### Gold Layer
-- Creating and loading data into dimension and fact tables used for business intelligence, reporting, and analytics.
+- Creating and loading data into dimension and fact tables.
 - Follows a star schema structure for business intelligence, reporting, and analytics.
 - Creating indexes to increase query performance.
 - Date dimension table added to support time based aggregation.
