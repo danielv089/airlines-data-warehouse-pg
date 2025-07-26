@@ -19,8 +19,11 @@ This project demonstrates the design and implementation of an airline data wareh
 ### Gold Layer
 - Creating and loading data into dimension and fact tables used for business intelligence, reporting, and analytics.
 - Follows a star schema structure or business intelligence, reporting, and analytics.
+- Creating indexes to increase query performance.
 
- ![dw_figure](docs/airlines_dw.png)
+## 🗃️ ERD Diagram
+
+![dw_figure](docs/departure_dw_erd.jpg)
 
 ## 🧰 Tech Stack
 - **PostgreSQL**
