@@ -20,6 +20,8 @@ This project demonstrates the design and implementation of an airline data wareh
 - Creating and loading data into dimension and fact tables used for business intelligence, reporting, and analytics.
 - Follows a star schema structure or business intelligence, reporting, and analytics.
 
+ ![dw_figure](docs/airlines_dw.png)
+
 ## 🧰 Tech Stack
 - **PostgreSQL**
 - **SQL**
