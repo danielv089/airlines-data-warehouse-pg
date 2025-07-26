@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS silver.cancellation(
 -- Description: Airline carrier codes and full names.
 CREATE TABLE IF NOT EXISTS silver.carriers(
     carrier_code VARCHAR(10),
-    carrier_name VARCHAR(50)
+    airline_name VARCHAR(50)
 );
 
 -- Table: silver.active_weather

@@ -58,3 +58,170 @@ FROM (
 	GROUP BY sequence.day
      ) DQ
 order by 1;
+
+
+
+-- Load cancellation data table into gold.dim_cancellation
+INSERT INTO gold.dim_cancellation(
+    status_code, 
+    cancellation_reason
+)
+SELECT
+    status_code,
+    cancellation_reason
+FROM
+    silver.cancellation;
+
+-- Load carrier codes and names into gold.dim_carriers
+-- Note:
+INSERT INTO gold.dim_carriers(
+    carrier_id,
+    airline_name
+)
+SELECT
+    carrier_code,
+    airline_name
+FROM
+    silver.carriers;
+
+
+-- Load weather event codes and description into gold.dim_active_weather
+INSERT INTO gold.dim_active_weather(
+    weather_id,
+    weather_description
+)
+SELECT
+    weather_code,
+    weather_description
+FROM
+    silver.active_weather;
+
+
+-- Load station metadata into gold.dim_airports
+INSERT INTO gold.dim_airports(
+  airport_id,
+  airport,
+  display_airport_name,
+  display_airport_city,
+  airport_state_name,
+  airport_state_code,
+  lattitude,
+  longitude,
+  elevation,
+  icao,
+  iata,
+  faa,
+  mesonet_station
+)
+SELECT 
+  airport_id,
+  airport,
+  display_airport_name,
+  display_airport_city,
+  airport_state_name,
+  airport_state_code,
+  lattitude,
+  longitude,
+  elevation,
+  icao,
+  iata,
+  faa,
+  mesonet_station
+FROM
+  silver.stations;
+
+
+
+-- Separating aircraft data from the main fact table
+-- Note: Selecting distinct values to assure not duplicate primary keys in the dimension table
+INSERT INTO gold.dim_aircraft(
+  tail_num,
+  year_of_manufacture,
+  manufacturer,
+  icao_type,
+  ac_range,
+  ac_width
+)
+SELECT DISTINCT 
+  tail_num,
+  year_of_manufacture,
+  manufacturer,
+  icao_type,
+  ac_range,
+  width
+FROM bronze.complete_data;
+
+
+
+
+
+INSERT INTO gold.fact_departure_data(
+    fl_date,
+    date_fk,
+    dep_hour,
+    mkt_unique_carrier,
+    mkt_carrier_fl_num,
+    op_unique_carrier,
+    op_carrier_fl_num,
+    tail_num_fk,
+    origin_id,
+    dest_id,
+    dep_time,
+    crs_dep_time,
+    taxi_out,
+    dep_delay,
+    air_time,
+    distance,
+    cancellation,
+    wind_dir,
+    wind_spd,
+    wind_gust,
+    visibility,
+    temperature,
+    dew_point,
+    rel_humidity,
+    altimeter,
+    lowest_cloud_layer,
+    n_cloud_layer,
+    low_level_cloud,
+    mid_level_cloud,
+    high_level_cloud,
+    cloud_cover,
+    active_weather
+)
+SELECT
+  fl_date,
+  TO_CHAR(fl_date, 'YYYYMMDD')::INTEGER AS date_fk,
+  dep_hour,
+  mkt_unique_carrier,
+  mkt_carrier_fl_num,
+  op_unique_carrier,
+  op_carrier_fl_num,
+  tail_num,
+  origin_airport.airport_id AS origin_id,
+  dest_airport.airport_id AS dest_id,
+  dep_time,
+  crs_dep_time,
+  taxi_out,
+  dep_delay,
+  air_time,
+  distance,
+  cancelled,
+  wind_dir,
+  wind_spd,
+  wind_gust,
+  visibility,
+  temperature,
+  dew_point,
+  rel_humidity,
+  altimeter,
+  lowest_cloud_layer,
+  n_cloud_layer,
+  low_level_cloud,
+  mid_level_cloud,
+  high_level_cloud,
+  cloud_cover,
+  active_weather
+FROM silver.complete_data
+JOIN gold.dim_airports AS origin_airport ON complete_data.origin = origin_airport.airport
+JOIN gold.dim_airports AS dest_airport ON complete_data.dest = dest_airport.airport;
