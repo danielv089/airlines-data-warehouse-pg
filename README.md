@@ -20,6 +20,7 @@ This project demonstrates the design and implementation of an airline data wareh
 - Creating and loading data into dimension and fact tables used for business intelligence, reporting, and analytics.
 - Follows a star schema structure or business intelligence, reporting, and analytics.
 - Creating indexes to increase query performance.
+- Date dimension table added to support time based aggregation.
 
 ## 🗃️ ERD Diagram
 
