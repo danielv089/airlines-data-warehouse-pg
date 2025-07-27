@@ -9,13 +9,14 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 ### Bronze Layer
 - Raw flight, cancellation, carrier, weather, and airport data stored in CSV files
 - Data loaded into staging tables in the bronze schema without transformation.
+- Data quality check performed (check row count, null values, duplicated rows and date range).
 - Preserving raw data.
 
 ### Silver Layer
 - Data validation, cleansing and transormation, when needed. 
 - The raw data is already relatively clean, so minimal transformation was applied.
-- Purpose is refining data quality and apply consistent formatting and ensure atomicity.
-- There are missing data in the weather reports due of cancelled flights.
+- Data separation in columns to apply consistent formatting and ensure atomicity and the 1NF.
+- There is missing data in the weather reports due of cancelled flights mostly.
 
 ### Gold Layer
 - Creating and loading data into dimension and fact tables.
@@ -32,14 +33,15 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 - **SQL**
 
 ## 📁 Repository Structure
-<pre> ``` 
+``` 
 ├── analytics_sql_scripts
 │   └── analytics.sql
 ├── data
 ├── data_warehouse_sql_scripts
 │   ├── 1_bronze_layer
+│   │   ├── bronze_layer_quality_check.txt
 │   │   ├── ddl_create_bronze_layer_tables.sql
-│   │   └── dml_loading_bronze_layer_data
+│   │   └── dml_loading_bronze_layer_data.txt
 │   ├── 2_silver_layer
 │   │   ├── ddl_creating_silver_layer_tables.sql
 │   │   └── dml_loading_silver_layer_data.sql
@@ -53,7 +55,8 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 │   ├── airlines_dw.png
 │   └── departure_dw_erd.jpg
 ├── LICENSE
-``` </pre>
+└── README.md
+```
 
 ## 🔗 References
 

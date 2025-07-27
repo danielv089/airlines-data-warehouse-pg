@@ -1,0 +1,213 @@
+-- ========================================
+-- Script: bronze_layer_quality_check.txt
+-- Purpose: Data Quality check in the Bronze Layer
+-- Author: Daniel Varga
+-- Created: 2025-07-27
+-- Modified: 2025-07-27
+-- ========================================
+
+--bronze.complete_data data quality check scripts.
+
+--Checking overall number of data.
+
+SELECT COUNT(*) FROM bronze.complete_data;
+
+  count  
+---------
+ 6954636
+(1 row)
+
+-- Checking null values for every column.
+
+SELECT 
+  COUNT(*) AS total_rows,
+  COUNT(*) FILTER (WHERE l_date IS NULL) AS l_date_nulls,
+  COUNT(*) FILTER (WHERE dep_hour IS NULL) AS dep_hour_nulls,
+  COUNT(*) FILTER (WHERE mkt_unique_carrier IS NULL) AS mkt_unique_carrier_nulls,
+  COUNT(*) FILTER (WHERE mkt_carrier_fl_num IS NULL) AS mkt_carrier_fl_num_nulls,
+  COUNT(*) FILTER (WHERE op_unique_carrier IS NULL) AS op_unique_carrier_nulls,
+  COUNT(*) FILTER (WHERE op_carrier_fl_num IS NULL) AS op_carrier_fl_num_nulls,
+  COUNT(*) FILTER (WHERE tail_num IS NULL) AS tail_num_nulls,
+  COUNT(*) FILTER (WHERE origin IS NULL) AS origin_nulls,
+  COUNT(*) FILTER (WHERE dest IS NULL) AS dest_nulls,
+  COUNT(*) FILTER (WHERE dep_time IS NULL) AS dep_time_nulls,
+  COUNT(*) FILTER (WHERE crs_dep_time IS NULL) AS crs_dep_time_nulls,
+  COUNT(*) FILTER (WHERE taxi_out IS NULL) AS taxi_out_nulls,
+  COUNT(*) FILTER (WHERE dep_delay IS NULL) AS dep_delay_nulls,
+  COUNT(*) FILTER (WHERE air_time IS NULL) AS air_time_nulls,
+  COUNT(*) FILTER (WHERE distance IS NULL) AS distance_nulls,
+  COUNT(*) FILTER (WHERE cancelled IS NULL) AS cancelled_nulls,
+  COUNT(*) FILTER (WHERE latitude IS NULL) AS latitude_nulls,
+  COUNT(*) FILTER (WHERE longitude IS NULL) AS longitude_nulls,
+  COUNT(*) FILTER (WHERE elevation IS NULL) AS elevation_nulls,
+  COUNT(*) FILTER (WHERE mesonet_station IS NULL) AS mesonet_station_nulls,
+  COUNT(*) FILTER (WHERE year_of_manufacture IS NULL) AS year_of_manufacture_nulls,
+  COUNT(*) FILTER (WHERE manufacturer IS NULL) AS manufacturer_nulls,
+  COUNT(*) FILTER (WHERE icao_type IS NULL) AS icao_type_nulls,
+  COUNT(*) FILTER (WHERE ac_range IS NULL) AS ac_range_nulls,
+  COUNT(*) FILTER (WHERE width IS NULL) AS width_nulls,
+  COUNT(*) FILTER (WHERE wind_dir IS NULL) AS wind_dir_nulls,
+  COUNT(*) FILTER (WHERE wind_spd IS NULL) AS wind_spd_nulls,
+  COUNT(*) FILTER (WHERE wind_gust IS NULL) AS wind_gust_nulls,
+  COUNT(*) FILTER (WHERE visibility IS NULL) AS visibility_nulls,
+  COUNT(*) FILTER (WHERE temperature IS NULL) AS temperature_nulls,
+  COUNT(*) FILTER (WHERE dew_point IS NULL) AS dew_point_nulls,
+  COUNT(*) FILTER (WHERE rel_humidity IS NULL) AS rel_humidity_nulls,
+  COUNT(*) FILTER (WHERE altimeter IS NULL) AS altimeter_nulls,
+  COUNT(*) FILTER (WHERE lowest_cloud_layer IS NULL) AS lowest_cloud_layer_nulls,
+  COUNT(*) FILTER (WHERE n_cloud_layer IS NULL) AS n_cloud_layer_nulls,
+  COUNT(*) FILTER (WHERE low_level_cloud IS NULL) AS low_level_cloud_nulls,
+  COUNT(*) FILTER (WHERE mid_level_cloud IS NULL) AS mid_level_cloud_nulls,
+  COUNT(*) FILTER (WHERE high_level_cloud IS NULL) AS high_level_cloud_nulls,
+  COUNT(*) FILTER (WHERE cloud_cover IS NULL) AS cloud_cover_nulls,
+  COUNT(*) FILTER (WHERE active_weather IS NULL) AS active_weather_nulls
+FROM your_table_name;
+
+--The results shows missing data in the columns related to the meteorological data.
+--Most of this data missing due of cancelled flights.
+--Other columns don't have missing data or null values.
+
+wind_dir_nulls: 32789
+wind_spd_nulls: 32789
+wind_gust_nulls: 32789
+visibility_nulls: 32789
+temperature_nulls: 32789
+dew_point_nulls: 32789
+rel_humidity_nulls: 32789
+altimeter_nulls: 32789
+lowest_cloud_layer_nulls: 32789
+n_cloud_layer_nulls: 32789
+low_level_cloud_nulls: 32789
+mid_level_cloud_nulls: 32789
+high_level_cloud_nulls: 32789
+cloud_cover_nulls: 32789
+active_weather_nulls: 32789
+
+--fl_date column date range check.
+--No date out of range of the year 2022.
+
+SELECT COUNT(*) FROM bronze.complete_data WHERE NOT fl_date BETWEEN '2022-01-01' AND '2022-12-31';
+
+--Query to check duplicated rows in the data.
+--Result shows no duplivated rows.
+
+SELECT
+  fl_date,
+  dep_hour,
+  mkt_unique_carrier,
+  mkt_carrier_fl_num,
+  op_unique_carrier,
+  op_carrier_fl_num,
+  tail_num,
+  origin,
+  dest,
+  dep_time,
+  crs_dep_time,
+  taxi_out,
+  dep_delay,
+  air_time,
+  distance,
+  latitude,
+  elevation,
+  mesonet_station,
+  year_of_manufacture,
+  manufacturer,
+  icao_type,
+  ac_range,
+  width,
+  wind_dir,
+  wind_spd,
+  wind_gust,
+  visibility,
+  temperature,
+  dew_point,
+  rel_humidity,
+  altimeter,
+  lowest_cloud_layer,
+  n_cloud_layer,
+  low_level_cloud,
+  mid_level_cloud,
+  high_level_cloud,
+  cloud_cover,
+  active_weather,
+  COUNT(*)
+FROM 
+  bronze.complete_data
+GROUP BY 
+  fl_date,
+  dep_hour,
+  mkt_unique_carrier,
+  mkt_carrier_fl_num,
+  op_unique_carrier,
+  op_carrier_fl_num,
+  tail_num,
+  origin,
+  dest,
+  dep_time,
+  crs_dep_time,
+  taxi_out,
+  dep_delay,
+  air_time,
+  distance,
+  latitude,
+  elevation,
+  mesonet_station,
+  year_of_manufacture,
+  manufacturer,
+  icao_type,
+  ac_range,
+  width,
+  wind_dir,
+  wind_spd,
+  wind_gust,
+  visibility,
+  temperature,
+  dew_point,
+  rel_humidity,
+  altimeter,
+  lowest_cloud_layer,
+  n_cloud_layer,
+  low_level_cloud,
+  mid_level_cloud,
+  high_level_cloud,
+  cloud_cover,
+  active_weather
+HAVING COUNT(*) > 1;
+
+
+--bronze.stations data quality check.
+
+--Checking duplicated rows.
+--Result shows no duplicate rows.
+
+SELECT 
+    airport_id,
+    airport,
+    display_airport_name,
+    display_airport_city,
+    airport_state_name,
+    airport_state_code,
+    lattitude,
+    longitude,
+    elevation,
+    icao,
+    iata,
+    faa,
+    mesonet_station,
+    COUNT(*) AS duplicate_count
+FROM bronze.stations
+GROUP BY
+    airport_id,
+    airport,
+    display_airport_name,
+    display_airport_city,
+    airport_state_name,
+    airport_state_code,
+    lattitude,
+    longitude,
+    elevation,
+    icao,
+    iata,
+    faa,
+    mesonet_station
+HAVING COUNT(*) > 1;

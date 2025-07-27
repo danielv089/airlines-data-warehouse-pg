@@ -12,25 +12,30 @@ SET search_path TO bronze;
 -- Load Complete Flight Data
 -- Source: CompleteData.csv
 -- Note: Table is truncated before each load
-TRUNCATE TABLE bronze.complete_data
+
+TRUNCATE TABLE bronze.complete_data;
 \copy bronze.complete_data FROM 'CompleteData.csv' DELIMITER ',' CSV HEADER;
 
 -- Load Stations Data
 -- Source: Stations.csv
-TRUNCATE TABLE bronze.stations
+
+TRUNCATE TABLE bronze.stations;
 \copy bronze.stations FROM 'Stations.csv' DELIMITER ',' CSV HEADER;
 
 -- Load Airline Carrier Data
 -- Source: Carriers.csv
-TRUNCATE TABLE bronze.carriers
+
+TRUNCATE TABLE bronze.carriers;
 \copy bronze.carriers FROM 'Carriers.csv' DELIMITER ',' CSV HEADER;
 
 -- Load Cancellation Data
 -- Source: Cancellation.csv
-TRUNCATE TABLE bronze.cancellation
+
+TRUNCATE TABLE bronze.cancellation;
 \copy bronze.cancellation FROM 'Cancellation.csv' DELIMITER ',' CSV HEADER;
 
 -- Load Active Weather Data
 -- Source: ActiveWeather.csv
-TRUNCATE TABLE bronze.active_weather
+
+TRUNCATE TABLE bronze.active_weather;
 \copy bronze.active_weather FROM 'ActiveWeather.csv' DELIMITER ',' CSV HEADER;
