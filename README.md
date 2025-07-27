@@ -31,6 +31,30 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 - **PostgreSQL**
 - **SQL**
 
+## 📁 Repository Structure
+<pre> ``` 
+├── analytics_sql_scripts
+│   └── analytics.sql
+├── data
+├── data_warehouse_sql_scripts
+│   ├── 1_bronze_layer
+│   │   ├── ddl_create_bronze_layer_tables.sql
+│   │   └── dml_loading_bronze_layer_data
+│   ├── 2_silver_layer
+│   │   ├── ddl_creating_silver_layer_tables.sql
+│   │   └── dml_loading_silver_layer_data.sql
+│   ├── 3_gold_layer
+│   │   ├── create_indexes.sql
+│   │   ├── ddl_creating_gold_layer_tables.sql
+│   │   └── dml_loading_gold_layer_data.sql
+│   ├── ddl_create_database.sql
+│   └── ddl_create_schemas.sql
+├── docs
+│   ├── airlines_dw.png
+│   └── departure_dw_erd.jpg
+├── LICENSE
+``` </pre>
+
 ## 🔗 References
 
 - Kaggle - 2022 US Airlines Domestic Departure Data
