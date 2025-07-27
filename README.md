@@ -34,9 +34,15 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 
 ## 📁 Repository Structure
 ``` 
+.
 ├── analytics_sql_scripts
 │   └── analytics.sql
 ├── data
+│   ├── ActiveWeather.csv
+│   ├── Cancellation.csv
+│   ├── Carriers.csv
+│   ├── CompleteData.csv #Only the first 10000 rows of the original dataset due of size limitations.
+│   └── Stations.csv
 ├── data_warehouse_sql_scripts
 │   ├── 1_bronze_layer
 │   │   ├── bronze_layer_quality_check.txt
