@@ -28,20 +28,26 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 
 ![dw_figure](docs/departure_dw_erd.jpg)
 
+## Exploratory Data Analysis (EDA)
+- Exploratory Data Analysis performed to gain more insight from the departure dataset.
+- In this section I am leveraging SQL queries to extract summary statistics and trends.
+
+  [![eda_md](https://img.shields.io/badge/EDA%20Queries%20and%20Postgres%20Output-blue?style=for-the-badge)](EDA.md)
+  
+
 ## 🧰 Tech Stack
 - **PostgreSQL**
 - **SQL**
 
 ## 📁 Repository Structure
 ``` 
-.
 ├── analytics_sql_scripts
-│   └── analytics.sql
+│   └── eda.sql
 ├── data
 │   ├── ActiveWeather.csv
 │   ├── Cancellation.csv
 │   ├── Carriers.csv
-│   ├── CompleteData.csv #Only the first 10000 rows of the original dataset due of size limitations.
+│   ├── CompleteData.csv
 │   └── Stations.csv
 ├── data_warehouse_sql_scripts
 │   ├── 1_bronze_layer
@@ -60,6 +66,7 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 ├── docs
 │   ├── airlines_dw.png
 │   └── departure_dw_erd.jpg
+├── EDA.md
 ├── LICENSE
 └── README.md
 ```
