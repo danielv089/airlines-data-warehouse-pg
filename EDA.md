@@ -145,9 +145,9 @@ LIMIT 10;
 (10 rows)
 ```
 
-## Calculating Total and Average Delay Time by Arilines
+## Total and Average Delay Time by Airlines
 ```sql
-airlines_datawarehouse=# SELECT
+airlines_departure_data_warehouse=# SELECT
 gold.dim_carriers.airline_name,
 SUM(gold.fact_departure_data.dep_delay) AS total_delay,
 ROUND(AVG(gold.fact_departure_data.dep_delay),2) AS avg_delay
@@ -170,5 +170,89 @@ ORDER BY total_delay DESC;
  Allegiant Air          |     2078207 |     18.38
  Hawaiian Airlines Inc. |      721204 |      9.86
 (10 rows)
+```
 
+## 10 Busiest Flight Departure Hours and Dates
+```sql
+airlines_departure_data_warehouse=# SELECT
+  gold.fact_departure_data.fl_date,
+  gold.fact_departure_data.dep_hour,
+  COUNT(*) AS num_departures
+FROM gold.fact_departure_data
+GROUP BY gold.fact_departure_data.fl_date, gold.fact_departure_data.dep_hour
+ORDER BY num_departures DESC
+LIMIT 10;
+
+  fl_date   | dep_hour | num_departures 
+------------+----------+----------------
+ 2022-12-23 |        0 |           4655
+ 2022-12-26 |        0 |           3944
+ 2022-02-03 |        0 |           3371
+ 2022-02-04 |        0 |           3110
+ 2022-12-25 |        0 |           3001
+ 2022-12-24 |        0 |           2880
+ 2022-01-03 |        0 |           2605
+ 2022-12-22 |        0 |           2221
+ 2022-01-29 |        0 |           2211
+ 2022-01-02 |        0 |           2138
+(10 rows)
+```
+
+## 10 Most Used Aircraft
+```sql
+airlines_departure_data_warehouse=# SELECT * 
+FROM 
+(SELECT
+  gold.fact_departure_data.tail_num_fk,
+  COUNT(*) AS num_flights
+FROM gold.fact_departure_data
+GROUP BY gold.fact_departure_data.tail_num_fk)
+AS flights
+JOIN gold.dim_aircraft
+ON flights.tail_num_fk = gold.dim_aircraft.tail_num
+ORDER BY num_flights DESC
+LIMIT 10;
+
+ tail_num_fk | num_flights | tail_num | year_of_manufacture | manufacturer | icao_type |  ac_range   |  ac_width   
+-------------+-------------+----------+---------------------+--------------+-----------+-------------+-------------
+ N475HA      |        3033 | N475HA   |                2001 | Boeing       | B712      | Short Range | Narrow-body
+ N492HA      |        3032 | N492HA   |                2004 | Boeing       | B712      | Short Range | Narrow-body
+ N483HA      |        2825 | N483HA   |                2001 | Boeing       | B712      | Short Range | Narrow-body
+ N484HA      |        2813 | N484HA   |                2001 | Boeing       | B712      | Short Range | Narrow-body
+ N476HA      |        2794 | N476HA   |                2001 | Boeing       | B712      | Short Range | Narrow-body
+ N490HA      |        2792 | N490HA   |                2000 | Boeing       | B712      | Short Range | Narrow-body
+ N493HA      |        2784 | N493HA   |                2005 | Boeing       | B712      | Short Range | Narrow-body
+ N478HA      |        2773 | N478HA   |                2001 | Boeing       | B712      | Short Range | Narrow-body
+ N489HA      |        2731 | N489HA   |                1998 | Boeing       | B712      | Short Range | Narrow-body
+ N494HA      |        2553 | N494HA   |                2004 | Boeing       | B712      | Short Range | Narrow-body
+(10 rows)
+```
+
+## Running total of all departures per month
+```sql
+airlines_datawarehouse=# SELECT 
+  gold.dim_date.year,
+  gold.dim_date.month,
+  COUNT(*) AS monthly_departures,
+  SUM(COUNT(*)) OVER (ORDER BY gold.dim_date.month) AS cumulative_departures
+FROM gold.fact_departure_data
+JOIN gold.dim_date
+ON gold.fact_departure_data.date_fk = gold.dim_date.date_key
+GROUP BY gold.dim_date.year, gold.dim_date.month
+ORDER BY gold.dim_date.year, gold.dim_date.month;
+ year | month | monthly_departures | cumulative_departures 
+------+-------+--------------------+-----------------------
+ 2022 |     1 |             551993 |                551993
+ 2022 |     2 |             513579 |               1065572
+ 2022 |     3 |             587033 |               1652605
+ 2022 |     4 |             576982 |               2229587
+ 2022 |     5 |             599519 |               2829106
+ 2022 |     6 |             597001 |               3426107
+ 2022 |     7 |             615206 |               4041313
+ 2022 |     8 |             609325 |               4650638
+ 2022 |     9 |             577146 |               5227784
+ 2022 |    10 |             593008 |               5820792
+ 2022 |    11 |             565278 |               6386070
+ 2022 |    12 |             568566 |               6954636
+(12 rows)
 ```
