@@ -59,6 +59,7 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 │   │   ├── ddl_creating_silver_layer_tables.sql
 │   │   └── dml_loading_silver_layer_data.sql
 │   ├── 3_gold_layer
+│   │   ├── add_surrogatekey_to_fact_table.sql
 │   │   ├── create_indexes.sql
 │   │   ├── ddl_creating_gold_layer_tables.sql
 │   │   └── dml_loading_gold_layer_data.sql
