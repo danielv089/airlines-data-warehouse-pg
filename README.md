@@ -23,6 +23,7 @@ This project demonstrates the design of the 2022 Airlines Departure Data Warehou
 - Follows a star schema structure for business intelligence, reporting, and analytics.
 - Creating indexes to increase query performance.
 - Date dimension table added to support time based aggregation.
+- Generating flight_id as surrogate key by combining multiple columns uniquely identifying each flight.
 
 ## 🗃️ ERD Diagram
 
