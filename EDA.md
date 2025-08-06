@@ -230,7 +230,7 @@ LIMIT 10;
 
 ## Running total of all departures per month
 ```sql
-airlines_datawarehouse=# SELECT 
+airlines_departure_data_warehouse=# SELECT 
   gold.dim_date.year,
   gold.dim_date.month,
   COUNT(*) AS monthly_departures,
@@ -240,6 +240,7 @@ JOIN gold.dim_date
 ON gold.fact_departure_data.date_fk = gold.dim_date.date_key
 GROUP BY gold.dim_date.year, gold.dim_date.month
 ORDER BY gold.dim_date.year, gold.dim_date.month;
+
  year | month | monthly_departures | cumulative_departures 
 ------+-------+--------------------+-----------------------
  2022 |     1 |             551993 |                551993
