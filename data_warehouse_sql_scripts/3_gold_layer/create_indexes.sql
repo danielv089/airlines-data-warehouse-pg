@@ -3,11 +3,13 @@
 -- Purpose: Creating indexes to increase query performance
 -- Author: Daniel Varga
 -- Created: 2025-07-26
--- Modified: 2025-07-27
+-- Modified: 2025-08_25
 -- ========================================
 
 
 -- fact_departure_data Indexes
+CREATE INDEX idx_flight_id ON gold.fact_departure_data(flight_id);
+
 CREATE INDEX idx_date_fk ON gold.fact_departure_data(date_fk);
 
 CREATE INDEX idx_tail_num_fk ON gold.fact_departure_data(tail_num_fk);

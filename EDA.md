@@ -1,6 +1,9 @@
 # 2022 Airlines Departure Data Exploratory Data Analysis (EDA)
 
 ## Number of All Not Cancelled Flights
+
+- Number of non-cancelled flights in the year of 2022 is 6806806.
+
 ```sql
 airlines_departure_data_warehouse=# SELECT 
   COUNT(*) AS num_all_flights 
@@ -14,6 +17,10 @@ WHERE cancellation = 0;
 ```
 
 ## Number of Flights per Month Where the Flight Was Not Cancelled
+
+- The total number of non-cancelled flights are peaks in July 2022 with the number 605705.
+- The trend shows a general increase until July then a slight decline toeards the end of the year.
+
 ```sql
 airlines_departure_data_warehouse=# SELECT 
   gold.dim_date.year,
@@ -45,6 +52,9 @@ GROUP BY gold.dim_date.year,gold.dim_date.month, gold.dim_date.month_name;
 ```
 
 ## Number of All Cancelled Flights
+
+- Number of cancelled flights in the year of 2022 is 147830.
+
 ```sql
 airlines_departure_data_warehouse=# SELECT 
   COUNT(*) AS num_cancelled_flights 
@@ -58,6 +68,11 @@ WHERE cancellation != 0;
 ```
 
 ## Monthly Cancellation Counts Group by Cancellation Reason and Maximum Number of Cancellations
+
+- Carrier and Weather cancellation is the most frequent reason.
+- Winter months have more cancellation due of severe weather conditions.
+- Summer periods mostly demostrate Carrier related canecllations.
+
 ```sql
 airlines_departure_data_warehouse=# SELECT 
   gold.dim_date.year,
@@ -119,6 +134,9 @@ ORDER BY gold.dim_date.year, gold.dim_date.month, gold.dim_date.month_name, gold
 (42 rows)
 ```
 ## Top 10 Busiest Origin Airports by Number of Departures
+
+- Hartsfield-Jackson Atlanta leads 316,706 flights.
+
 ```sql
 airlines_departure_data_warehouse=# SELECT
   gold.dim_airports.display_airport_name,
@@ -199,6 +217,9 @@ LIMIT 10;
 ```
 
 ## 10 Most Used Aircraft
+
+- The analysis of the most used aircrafts can help scheduling maintance operations.
+
 ```sql
 airlines_departure_data_warehouse=# SELECT * 
 FROM 

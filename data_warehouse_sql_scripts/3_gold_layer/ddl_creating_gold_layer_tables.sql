@@ -3,14 +3,14 @@
 -- Purpose: Creating gold layer tables
 -- Author: Daniel Varga
 -- Created: 2025-07-18
--- Modified: 2025-07-26
+-- Modified: 2025-08_25
 -- ========================================
 
 -- Table: gold.dim_date
 -- Description: Date dimension table containing various granularities
 CREATE TABLE IF NOT EXISTS gold.dim_date (
     date_key INTEGER PRIMARY KEY,
-    date DATE,
+    date DATE NOT NULL,
     year INTEGER,
     month INTEGER,
     month_name VARCHAR(20),
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS gold.dim_date (
 -- Note: Primary key added.
 CREATE TABLE IF NOT EXISTS gold.dim_cancellation(
     status_code INTEGER PRIMARY KEY,
-    cancellation_reason VARCHAR(50)
+    cancellation_reason VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Table: gold.dim_carriers
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS gold.dim_cancellation(
 -- Note: Primary key added.
 CREATE TABLE IF NOT EXISTS gold.dim_carriers(
     carrier_id VARCHAR(10) PRIMARY KEY,
-    airline_name VARCHAR(50)
+    airline_name VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Table: gold.dim_active_weather
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS gold.dim_carriers(
 -- Note_ Primary key added
 CREATE TABLE IF NOT EXISTS gold.dim_active_weather(
     weather_id INTEGER PRIMARY KEY,
-    weather_description VARCHAR(125)
+    weather_description VARCHAR(125) NOT NULL UNIQUE
 );
 
 -- Table: gold.dim_stations
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS gold.dim_active_weather(
 -- Note: Primary key added
 CREATE TABLE IF NOT EXISTS gold.dim_airports(
     airport_id INTEGER PRIMARY KEY,
-    airport VARCHAR(25),
+    airport VARCHAR(25) NOT NULL UNIQUE,
     display_airport_name VARCHAR(100),
     display_airport_city VARCHAR(100),
     airport_state_name VARCHAR(50),
@@ -79,11 +79,11 @@ CREATE TABLE IF NOT EXISTS gold.dim_airports(
 -- Note: Aircraft diemnsion table seperated from the main complete data
 CREATE TABLE IF NOT EXISTS gold.dim_aircraft(
     tail_num VARCHAR(10) PRIMARY KEY,
-    year_of_manufacture SMALLINT,
-    manufacturer VARCHAR(25),
-    icao_type VARCHAR(25),
-    ac_range VARCHAR(30),
-    ac_width VARCHAR(25)
+    year_of_manufacture SMALLINT NOT NULL,
+    manufacturer VARCHAR(25) NOT NULL,
+    icao_type VARCHAR(25) NOT NULL,
+    ac_range VARCHAR(30) NOT NULL,
+    ac_width VARCHAR(25) NOT NULL,
 );
 
 -- Table: gold.fact_departure_data
