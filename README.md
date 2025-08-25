@@ -11,6 +11,9 @@ Key Features:
 - Provide insights into airline performance, delays, cancellations, and operational trends.
 
 
+![schema_figure](docs/airlines_dw_schema.jpg)
+
+
 ## 🧱 Architecture Layers
 
 ### Bronze Layer
